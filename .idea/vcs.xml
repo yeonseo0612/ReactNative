@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/MyFirstCLI" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ReactNative" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/my-first-expo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/react-native-calculator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/react-native-component" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/react-native-context" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/react-native-hooks" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/react-native-join" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/react-native-style" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/react-native-todo" vcs="Git" />
+  </component>
+</project>
