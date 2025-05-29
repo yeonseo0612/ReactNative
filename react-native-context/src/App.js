@@ -4,6 +4,8 @@ import {UserProvider} from "./context/UserContext"
 import HomeScreen from './component/HomeScreen';
 import { ThemeProvider } from './context/ThemeContext'
 import ThemeComponent from './component/ThemeComponent';
+import CartScreen from './component/CartScreen';
+import { CartProvider } from './context/CartContext';
 const Container = styled.View`
     flex : 1;
     background-color : #ffffff;
@@ -25,9 +27,9 @@ const App = () => {
     // <ThemeProvider>
     //   <ThemeComponent />
     // </ThemeProvider>
-     <UserProvider>
-      <HomeScreen />
-    </UserProvider>
+     <CartProvider>
+      <CartScreen />
+    </CartProvider>
     )
 }
 

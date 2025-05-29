@@ -4,6 +4,8 @@ import Parent from "./component.js/Parent";
 import Form from "./component.js/Form";
 import Signup from "./component.js/Signup";
 import ChangeTheme from "./component.js/ChangeTheme";
+import Counter2 from "./component.js/Counter2";
+import LoginForm from "./component.js/LoginForm";
 const Container = styled.View`
     flex: 1;
     background-color : #fff;
@@ -20,7 +22,9 @@ const App = () => {
                     
                 {/* <Form />
                 <Signup></Signup> */}
-                <ChangeTheme />
+                {/* <ChangeTheme /> */}
+                {/* <Counter2 />+ */}
+                <LoginForm />
         </Container>
 }
 
