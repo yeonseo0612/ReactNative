@@ -4,6 +4,7 @@ import { Image,Input, Button} from '../components/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { validateEmail, removeWhitespace } from '../utils/common';
 import {images} from "../utils/images"
+import { signup } from '../utils/firebase';
 
 const Container = styled.View`
   flex: 1;
@@ -59,6 +60,8 @@ const Signup = () => {
     setErrorMessage(_errorMessage);
   },[name,email,password,passwordConfirm])
 
+
+  
   //조건에 따라 버튼 활성화/비활성화하기
   useEffect(() => {
     setDisabled(
@@ -66,7 +69,22 @@ const Signup = () => {
     )
   },[name,email,password,passwordConfirm, errorMessage]);
 
-  const _handleSignupButtonPress = () => {};
+  const _handleSignupButtonPress = async() => {
+
+    try{
+      const user = await signup({email,password, name, photoUrl});
+      console.log(user)
+        Alert.alert('Signup Success', user.email);
+    } catch (error){
+      Alert.alert('Signup Error', error.message);
+    }
+
+
+
+
+  };
+
+
 
   return (
     <KeyboardAwareScrollView
@@ -74,7 +92,7 @@ const Signup = () => {
       extraHeight={80}>
       <Container>
         {/* 프로필 사진 */}
-        <Image rounded />
+        <Image rounded url={photoURL} showButton onChangeImage={url => {}} />
 
         {/* 이름 입력 */}
         <Input
