@@ -91,7 +91,7 @@ const Label = styled.Text`
 const StyledTextInput = styled.TextInput.attrs(({ theme }) => ({
   placeholderTextColor: theme.inputPlaceholder,
 }))`
-  background-color: ${({ theme }) => theme.background};
+  background-color: ${({ theme, editable}) => editable ? theme.backgroundb : theme.inputDisabledBackground};
   color: ${({ theme }) => theme.text};
   padding: 20px 10px;
   font-size: 16px;
@@ -140,6 +140,7 @@ const Input = forwardRef(
           autoCorrect={false}
           textContentType="none"
           underlineColorAndroid="transparent"
+          editable={!disabled}
         />
       </Container>
     );

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ActivityIndicator } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import styled, {ThemeContext} from "styled-components";
-
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 const Container = styled.View`
 

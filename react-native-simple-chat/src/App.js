@@ -1,6 +1,9 @@
 // 최상위 컴포넌트가 사용될 컴포넌트
 import { useState, useEffect } from 'react';
+import { ProgressProvider } from './contexts';
 import {StatusBar, Image} from 'react-native';
+import { UserContext } from './contexts';
+import { UserProvider } from './contexts';
 
 // expo-asset : 로컬 이미지 / 파일을 앱에 미리 로드할 때 사용하는 패키지
 import {Asset} from 'expo-asset';
@@ -80,10 +83,14 @@ const App = () => {
   return (
     // 스타일드 컴포넌트의 ThemeProvider 컴포넌트를 사용해
     // 스타일드 컴포넌트에서 정의된 theme를 사용할 수 있도록 작성했다.
-    <ThemeProvider theme={theme}>
-      <StatusBar barStyle='dark-content'/>
+     <ThemeProvider theme={theme}>
+  <UserProvider>
+    <ProgressProvider>
+      <StatusBar barStyle="dark-content" />
       <Navigation />
-    </ThemeProvider>
+    </ProgressProvider>
+  </UserProvider>
+</ThemeProvider>
   )
 }
 

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ThemeContext } from "styled-components";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Login, Signup } from "../screens/index";
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 const Stack = createStackNavigator();
 

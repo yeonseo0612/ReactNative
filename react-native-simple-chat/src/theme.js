@@ -11,10 +11,15 @@ export const theme = {
     background : colors.white,
     text : colors.black,
     ImageBackground: colors.grey_0,
+
+
     label : colors.grey_1,
     inputPlaceholder : colors.grey_1,
     inputBorder : colors.grey_1,
     errorText : colors.red,
+    inputDisaledBackground : colors.grey_0,
+
+
     buttonBackground : colors.blue,
     buttonTitle : colors.white,
     buttonUnFilledTitle : colors.blue,
@@ -23,4 +28,14 @@ export const theme = {
 
     spinnerBackground : colors.black,
     spinnerIndicator : colors.white,
+
+        
+    tabActiveColor : colors.blue,
+    tabInactiveColor : colors.gray,
+
+
+      buttonBackground : colors.blue,
+    buttonTitle : colors.white,
+    buttonUnfilledTitle : colors.blue,
+    buttonLogout: colors.red,
 }

@@ -7,6 +7,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { removeWhitespce, validateEmail } from "../utils/common.js";
 import { login } from "../utils/firebase"; // 예: Firebase 로그인 함수 불러오기
 import { Button } from "react-native"; // 실제 환경에 맞게 수정 (커스텀 버튼이면 해당 import 유지)
+import { ProgressContext } from '../contexts';
+import { useContext } from 'react';
 
 const Container = styled.View`
   flex: 1;
@@ -29,6 +31,7 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [disabled, setDisabled] = useState(false);
+  const {spinner} = useContext(ProgressContext);
 
   const passwordRef = useRef();
 
@@ -48,14 +51,17 @@ const Login = ({ navigation }) => {
     setPassword(removeWhitespce(password));
   };
 
-  const _handleLoginButtonPress = async () => {
-    try {
-      const user = await login({ email, password });
-      Alert.alert('로그인 성공', `${user.email}님 환영합니다.`);
-    } catch (error) {
-      Alert.alert('로그인 실패', error.message);
-    }
-  };
+    const _handleLoginButtonPress = async() => {
+      try {
+        spinner.start();
+        const user = await login({email, password});
+        Alert.alert('Login Success', user.email);
+      } catch (error) {
+        Alert.alert('Login Error', error.message);
+      } finally{
+        spinner.stop();
+      }
+    };
 
   return (
     <KeyboardAwareScrollView

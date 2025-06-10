@@ -5,6 +5,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { validateEmail, removeWhitespace } from '../utils/common';
 import {images} from "../utils/images"
 import { signup } from '../utils/firebase';
+import { ProgressContext } from '../contexts';
+
 
 const Container = styled.View`
   flex: 1;
@@ -38,6 +40,7 @@ const Signup = () => {
   const [disabled, setDisabled] = useState(true);
 
   const [photoUrl, setPhotoUrl] = useState();
+    const {spinner} = useContext(ProgressContext);
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -69,19 +72,18 @@ const Signup = () => {
     )
   },[name,email,password,passwordConfirm, errorMessage]);
 
-  const _handleSignupButtonPress = async() => {
-
-    try{
-      const user = await signup({email,password, name, photoUrl});
-      console.log(user)
-        Alert.alert('Signup Success', user.email);
-    } catch (error){
+  const _handleSignupButtonPress = async () => {
+    try {
+      spinner.start();
+      const user = await signup({email, password, name, photoUrl});
+      dispatch(user);
+      console.log(user);
+      Alert.alert('Signup Success',user.email);
+    } catch (error) {
       Alert.alert('Signup Error', error.message);
+    } finally{
+      spinner.stop();
     }
-
-
-
-
   };
 
 

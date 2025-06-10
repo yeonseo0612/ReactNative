@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 
 import config from '../../firebase.json';
-
+import {collection} from 'firebase/firestore';
 import {
   getStorage, //firebase와 연결된 storage객체를 불러온다
   ref, //Storage에 있는 파일이나 경로를 참조하는 객체
@@ -33,7 +33,7 @@ export const login = async ({ email, password }) => {
     console.error('Login error:', error);
     // 에러 발생 시 상위(호출부)로 에러를 던짐
     throw error;
-  }
+  }                                                                                                                          
 };
 
 //회원가입 함수
@@ -80,4 +80,46 @@ const uploadImage = async(uri) => {
 
   //업로드한 이미지의 다운로드 URL을 반환한다
   return await getDownloadURL(storageRef);
+};
+
+export const logout = async() => {
+  return await auth.signOut();
+}
+
+// (3) 현재 로그인한 사용자 정보 가져오기
+export const getCurrentUser = () => {
+  // auth.currentUser가 로그인된 사용자 객체를 반환
+  const { uid, displayName, email, photoURL } = auth.currentUser;
+  console.log(`displayName: ${displayName}`);
+  // 우리가 원하는 형태로 가공해서 반환
+  return {
+    uid,
+    name: displayName,
+    email,
+    photoUrl: photoURL,
+  };
+};
+
+// (4) 사용자 프로필 사진 업데이트
+export const updateUserPhoto = async photoUrl => {
+
+  // 현재 로그인한 사용자 객체
+
+  const user = auth.currentUser;
+
+  // 만약 photoUrl이 HTTPS로 시작하면 이미 URL이므로 그대로 사용
+  // 그렇지 않으면 업로드 과정을 거친 뒤 Firebase Storage URL 획득
+
+  const storageUrl = photoUrl.startsWith('https') ? photoUrl : await uploadImage(photoUrl);
+
+  // Firebase Auth의 updateProfile로 프로필 사진 주소 수정
+
+  await updateProfile(user, { photoURL: storageUrl });
+
+  // 업데이트된 사용자 정보 반환
+  return {
+    name: user.displayName,
+    email: user.email,
+    photoUrl: user.photoURL,
+  };
 };
