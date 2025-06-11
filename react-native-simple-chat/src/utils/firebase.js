@@ -7,13 +7,23 @@ import {
 } from "firebase/auth";
 
 import config from '../../firebase.json';
-import {collection} from 'firebase/firestore';
+import {getFirestore, doc, setDoc, collection} from 'firebase/firestore';
 import {
   getStorage, //firebase와 연결된 storage객체를 불러온다
   ref, //Storage에 있는 파일이나 경로를 참조하는 객체
   uploadBytes, //Storage에 파일을 업로드해주는 함수
   getDownloadURL, //storage에 업로드된 파일의 다운로드 URL을 가져온다.
 } from 'firebase/storage'
+export const app = initializeApp(config);
+
+
+
+// 스토리지 모듈 가져오기
+const storage = getStorage(app);
+
+// 파이어스토어 DB 모듈 가져오기
+export const db = getFirestore(app);
+
 
 const app = initializeApp(config);
 
@@ -122,4 +132,30 @@ export const updateUserPhoto = async photoUrl => {
     email: user.email,
     photoUrl: user.photoURL,
   };
+};
+// 문서 생성하기
+export const createChannel = async ({ title, description }) => {
+  // 1) 'channels' 컬렉션 참조 가져오기
+  const channelCollection = collection(db, 'channels');
+
+  // 2) 새 문서에 대한 참조 생성 (자동으로 ID가 부여됨)
+  const newChannelRef = doc(channelCollection);
+
+  // 3) 채널에 할당될 고유 ID
+  const id = newChannelRef.id;
+
+  // 4) 새 채널에 들어갈 필드값 구성
+  const newChannel = {
+    id,
+    title,
+    description,
+    createdAt: Date.now(), // 타임스탬프 (epoch) 사용
+  };
+
+  // 5) setDoc으로 해당 문서 경로에 데이터 쓰기
+  //    doc() 참조에서 setDoc()을 호출
+  await setDoc(newChannelRef, newChannel);
+
+  // 6) 생성된 문서 ID 반환
+  return id;
 };
